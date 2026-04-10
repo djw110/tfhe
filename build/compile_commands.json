@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/home/dwhooley/documents_deb/fhe/tfhe/build",
+  "command": "/usr/bin/gcc  -I/home/dwhooley/documents_deb/fhe/tfhe/src -g -o CMakeFiles/tfhe_mul.dir/src/main.c.o -c /home/dwhooley/documents_deb/fhe/tfhe/src/main.c",
+  "file": "/home/dwhooley/documents_deb/fhe/tfhe/src/main.c",
+  "output": "CMakeFiles/tfhe_mul.dir/src/main.c.o"
+},
+{
+  "directory": "/home/dwhooley/documents_deb/fhe/tfhe/build",
+  "command": "/usr/bin/gcc  -I/home/dwhooley/documents_deb/fhe/tfhe/src -g -o CMakeFiles/tfhe_mul.dir/src/tlwe.c.o -c /home/dwhooley/documents_deb/fhe/tfhe/src/tlwe.c",
+  "file": "/home/dwhooley/documents_deb/fhe/tfhe/src/tlwe.c",
+  "output": "CMakeFiles/tfhe_mul.dir/src/tlwe.c.o"
+},
+{
+  "directory": "/home/dwhooley/documents_deb/fhe/tfhe/build",
+  "command": "/usr/bin/gcc  -I/home/dwhooley/documents_deb/fhe/tfhe/src -g -o CMakeFiles/tfhe_mul.dir/src/params.c.o -c /home/dwhooley/documents_deb/fhe/tfhe/src/params.c",
+  "file": "/home/dwhooley/documents_deb/fhe/tfhe/src/params.c",
+  "output": "CMakeFiles/tfhe_mul.dir/src/params.c.o"
+},
+{
+  "directory": "/home/dwhooley/documents_deb/fhe/tfhe/build",
+  "command": "/usr/bin/gcc  -I/home/dwhooley/documents_deb/fhe/tfhe/src -g -o CMakeFiles/tfhe_mul.dir/src/secure_sample.c.o -c /home/dwhooley/documents_deb/fhe/tfhe/src/secure_sample.c",
+  "file": "/home/dwhooley/documents_deb/fhe/tfhe/src/secure_sample.c",
+  "output": "CMakeFiles/tfhe_mul.dir/src/secure_sample.c.o"
+}
+]
