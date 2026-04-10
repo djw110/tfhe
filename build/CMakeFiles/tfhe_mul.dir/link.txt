@@ -1,1 +1,0 @@
-/usr/bin/gcc -g -Wl,--dependency-file=CMakeFiles/tfhe_mul.dir/link.d CMakeFiles/tfhe_mul.dir/src/main.c.o CMakeFiles/tfhe_mul.dir/src/tlwe.c.o CMakeFiles/tfhe_mul.dir/src/params.c.o CMakeFiles/tfhe_mul.dir/src/secure_sample.c.o -o tfhe_mul  -lm
