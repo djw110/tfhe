@@ -47,5 +47,52 @@ void poly_encrypt(poly_cipher *c, uint8_t *s, uint32_t *m){
 }
 
 void poly_decrypt(uint8_t *buf, poly_cipher *c, uint8_t *s){
-    return;
+    uint32_t phase[n];
+    for (int k=0; k<n; k++){
+        phase[k] = c->b[k];
+    }
+
+    for (int i = 0; i < n; i++){
+        if (s[i] == 1){
+            for (int j=0; j < n; j++){
+                if (i+j < n){
+                    phase[i+j] -= c->a[j];
+                }
+                else {
+                    phase[i+j-n] += c->a[j];
+                }
+            }
+        }
+    }
+
+    for (int k = 0; k<n; k++){
+        if (phase[k] > TORUS_0_25 && phase[k] < TORUS_0_75){
+            buf[k] = 1;
+        }
+        else {
+            buf[k] = 0;
+        }
+    }
+}
+
+void poly_add_h(poly_cipher *out, poly_cipher *c1, poly_cipher *c2){
+    for (int i = 0; i < n; i++){
+        out->a[i] = c1->a[i] + c2->a[i];
+        out->b[i] = c1->b[i] + c2->b[i];
+    }
+}
+
+void poly_add_c(poly_cipher *out, poly_cipher *c, uint8_t *m){
+    for (int i = 0; i < n; i++){
+        uint32_t scaled_num = (m[i]==1) ? TORUS_0_5 : 0;
+        out->a[i] = c->a[i];
+        out->b[i] = c->b[i] + scaled_num;
+    }
+}
+
+void poly_negate(poly_cipher *out, poly_cipher *c){
+    for (int i = 0; i < n; i++){
+        out->a[i] = 0 - c->a[i];
+        out->b[i] = 0 - c->b[i];
+    }
 }
