@@ -1,34 +1,34 @@
 #include "tlwe.h"
 
-void cipher_init(ciphertext *c){
+void std_cipher_init(std_cipher *c){
     c->a = malloc(n * sizeof(uint32_t));
 }
 
-void cipher_free(ciphertext *c){
+void std_cipher_free(std_cipher *c){
     free(c->a);
     c->a = NULL;
 }
 
-void gen_sk(uint8_t *buf){
+void std_gen_sk(uint8_t *buf){
     for (int i=0; i<n; i++){
         buf[i] = sec_rand8();
     }
 }
 
-void gen_mask(ciphertext *c){
+void gen_mask(std_cipher *c){
     for (int i = 0; i < n; i++){
         c->a[i] = sec_rand32();
     }
 }
 
-void lwe_add_h(ciphertext *out, ciphertext *c1, ciphertext *c2){
+void std_add_h(std_cipher *out, std_cipher *c1, std_cipher *c2){
     for (int i = 0; i < n; i++){
         out->a[i] = c1->a[i] + c2->a[i];
     }
     out->b = c1->b + c2->b;
 }
 
-void lwe_add_c(ciphertext *out, ciphertext *c, uint8_t m){
+void std_add_c(std_cipher *out, std_cipher *c, uint8_t m){
     uint32_t scaled_num = (m == 1) ? TORUS_0_5 : 0;
     for (int i = 0; i < n; i ++){
         out->a[i] = c->a[i];
@@ -36,14 +36,14 @@ void lwe_add_c(ciphertext *out, ciphertext *c, uint8_t m){
     out->b = c->b + scaled_num;
 }
 
-void lwe_negate(ciphertext *out, ciphertext *c){
+void std_negate(std_cipher *out, std_cipher *c){
     for (int i = 0; i < n; i++){
         out->a[i] = 0 - c->a[i];
     }
     out->b = 0 - c->b;
 }
 
-void encrypt(ciphertext *c, uint8_t *s, uint8_t m){
+void std_encrypt(std_cipher *c, uint8_t *s, uint8_t m){
     if (c->a == NULL){
         fprintf(stderr, "Uninitialized Cipher");
         return;
@@ -61,7 +61,7 @@ void encrypt(ciphertext *c, uint8_t *s, uint8_t m){
     c->b = dot + mu + e;
 }
 
-uint8_t decrypt(uint8_t *s, ciphertext *c){
+uint8_t std_decrypt(uint8_t *s, std_cipher *c){
     uint32_t phase = c->b;
     uint8_t m = 0;
     for (int i = 0; i < n; i++){
