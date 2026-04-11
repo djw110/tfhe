@@ -66,7 +66,7 @@ void poly_decrypt(uint8_t *buf, poly_cipher *c, uint8_t *s){
     }
 
     for (int k = 0; k<n; k++){
-        if (phase[k] > TORUS_0_25 && phase[k] < TORUS_0_75){
+        if (phase[k] > TORUS_0_125 && phase[k] < TORUS_0_375){
             buf[k] = 1;
         }
         else {
@@ -84,7 +84,7 @@ void poly_add_h(poly_cipher *out, poly_cipher *c1, poly_cipher *c2){
 
 void poly_add_c(poly_cipher *out, poly_cipher *c, uint8_t *m){
     for (int i = 0; i < n; i++){
-        uint32_t scaled_num = (m[i]==1) ? TORUS_0_5 : 0;
+        uint32_t scaled_num = (m[i]==1) ? TORUS_0_25 : 0;
         out->a[i] = c->a[i];
         out->b[i] = c->b[i] + scaled_num;
     }

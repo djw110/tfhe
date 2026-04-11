@@ -29,7 +29,7 @@ void std_add_h(std_cipher *out, std_cipher *c1, std_cipher *c2){
 }
 
 void std_add_c(std_cipher *out, std_cipher *c, uint8_t m){
-    uint32_t scaled_num = (m == 1) ? TORUS_0_5 : 0;
+    uint32_t scaled_num = (m == 1) ? TORUS_0_25 : 0;
     for (int i = 0; i < n; i ++){
         out->a[i] = c->a[i];
     }
@@ -49,7 +49,7 @@ void std_encrypt(std_cipher *c, uint8_t *s, uint8_t m){
         return;
     }
 
-    uint32_t mu = (m == 1) ? TORUS_0_5 : 0;
+    uint32_t mu = (m == 1) ? TORUS_0_25 : 0;
     uint32_t e = sec_gaussian();
     std_gen_pk(c);
 
@@ -67,7 +67,7 @@ uint8_t std_decrypt(uint8_t *s, std_cipher *c){
     for (int i = 0; i < n; i++){
         if(s[i]) phase -= c->a[i];
     }
-    if (phase > TORUS_0_25 && phase < TORUS_0_75){
+    if (phase > TORUS_0_125 && phase < TORUS_0_375){
         m = 1;
     }
     return m;
