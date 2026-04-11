@@ -15,7 +15,7 @@ void std_gen_sk(uint8_t *buf){
     }
 }
 
-void gen_mask(std_cipher *c){
+void std_gen_pk(std_cipher *c){
     for (int i = 0; i < n; i++){
         c->a[i] = sec_rand32();
     }
@@ -51,7 +51,7 @@ void std_encrypt(std_cipher *c, uint8_t *s, uint8_t m){
 
     uint32_t mu = (m == 1) ? TORUS_0_5 : 0;
     uint32_t e = sec_gaussian();
-    gen_mask(c);
+    std_gen_pk(c);
 
     uint32_t dot = 0;
     for (int i = 0; i < n; i++){

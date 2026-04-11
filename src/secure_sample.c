@@ -25,6 +25,7 @@ uint8_t sec_rand8() {
     return r;
 }
 
+// TODO: Switch to discrete gaussian to make constant-time
 uint32_t sec_gaussian() {
     double u1 = (double)sec_rand32_nozero() / TORUS_SCALE;
     double u2 = (double)sec_rand32_nozero() / TORUS_SCALE;

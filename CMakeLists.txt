@@ -5,6 +5,7 @@ project(TFHE C)
 add_executable(tfhe_mul 
     src/main.c
     src/tlwe.c
+    src/trlwe.c
     src/params.c
     src/secure_sample.c
 )
