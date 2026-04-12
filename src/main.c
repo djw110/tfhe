@@ -4,11 +4,7 @@ void test_lwe_encrypt(size_t numtests);
 void test_rlwe_encrypt(size_t numtests);
 
 int main(int argc, char* argv[]){
-    uint8_t s[n];
-    gen_sk(s);
-
     test_rlwe_encrypt(3);
-
     return 0;
 }
 
