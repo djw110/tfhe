@@ -41,8 +41,15 @@ void poly_encrypt(poly_cipher *c, uint8_t *s, uint32_t *m){
     }
 }
 
-void poly_decrypt(uint8_t *buf, poly_cipher *c, uint8_t *s){
-    uint32_t phase[n];
+void poly_bin_encrypt(poly_cipher *c, uint8_t *s, uint8_t *m){
+    uint32_t new_m[n];
+    for(int i = 0; i < n; i++){
+        new_m[i] = (m[i] == 1) ? TORUS_0_25 : 0;
+    }
+    poly_encrypt(c, s, new_m);
+}
+
+void poly_decrypt(uint32_t *phase, poly_cipher *c, uint8_t *s){
     for (int k=0; k<n; k++){
         phase[k] = c->b[k];
     }
@@ -60,6 +67,12 @@ void poly_decrypt(uint8_t *buf, poly_cipher *c, uint8_t *s){
         }
     }
 
+    
+}
+
+void poly_bin_decrypt(uint8_t *buf, poly_cipher *c, uint8_t *s){
+    uint32_t phase[n];
+    poly_decrypt(phase, c, s);
     for (int k = 0; k<n; k++){
         if (phase[k] > TORUS_0_125 && phase[k] < TORUS_0_375){
             buf[k] = 1;

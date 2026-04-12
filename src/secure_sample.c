@@ -1,11 +1,11 @@
 #include "secure_sample.h"
+#include <sys/random.h>
 
 uint32_t sec_rand32() {
     uint32_t r;
-    int fd = open("/dev/urandom", O_RDONLY);
-    if (fd < 0) return 0;
-    read(fd, &r, sizeof(r));
-    close(fd);
+    if (getrandom(&r, sizeof(r), 0) < 0){
+        return 0;
+    }
     return r;
 }
 
@@ -16,13 +16,12 @@ uint32_t sec_rand32_nozero(){
     }
 }
 
-uint8_t sec_rand8() {
+uint8_t sec_rand_bin() {
     uint8_t r;
-    int fd = open("/dev/urandom", O_RDONLY);
-    if (fd < 0) return 0;
-    read(fd, &r, sizeof(r));
-    close(fd);
-    return r;
+    if (getrandom(&r, sizeof(r), 0) < 0){
+        return 0;
+    }
+    return r & 1;
 }
 
 // TODO: Switch to discrete gaussian to make constant-time

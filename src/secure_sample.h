@@ -8,5 +8,5 @@
 
 uint32_t sec_rand32();
 uint32_t sec_rand32_nozero();
-uint8_t sec_rand8();
+uint8_t sec_rand_bin();
 uint32_t sec_gaussian();
