@@ -1,4 +1,4 @@
-#include "trlwe.h"
+#include "tgrsw.h"
 
 void test_lwe_encrypt(size_t numtests);
 
@@ -7,7 +7,7 @@ int main(int argc, char* argv[]){
     std_cipher c1;
     std_cipher c2;
     std_cipher temp;
-    std_gen_sk(s);
+    gen_sk(s);
     std_cipher_init(&c1);
     std_cipher_init(&c2);
     std_cipher_init(&temp);
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
 void test_lwe_encrypt(size_t numtests){
     uint8_t s[n];
     std_cipher c;
-    std_gen_sk(s);
+    gen_sk(s);
     std_cipher_init(&c);
 
     int error = 0;

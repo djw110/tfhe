@@ -8,7 +8,6 @@ typedef struct {
 
 void poly_cipher_init(poly_cipher *c);
 void poly_cipher_free(poly_cipher *c);
-void poly_gen_sk(uint8_t *buf);
 void poly_encrypt(poly_cipher *c, uint8_t *s, uint32_t *m);
 void poly_decrypt(uint8_t *buf, poly_cipher *c, uint8_t *s);
 void poly_add_h(poly_cipher *out, poly_cipher *c1, poly_cipher *c2);

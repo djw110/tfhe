@@ -11,5 +11,7 @@
 #define TORUS_0_75   (6U * TORUS_STEP)
 #define TORUS_0_875   (7U * TORUS_STEP)
 
-extern const int n;
-extern const double gaus_alpha;
+extern const int n; // ring dimension
+extern const int l; // decomposition levels
+extern const int beta; //bits per level (Base = 2^beta)
+extern const double gaus_alpha; // noise parameter

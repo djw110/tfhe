@@ -9,7 +9,7 @@ void std_cipher_free(std_cipher *c){
     c->a = NULL;
 }
 
-void std_gen_sk(uint8_t *buf){
+void gen_sk(uint8_t *buf){
     for (int i=0; i<n; i++){
         buf[i] = sec_rand8();
     }

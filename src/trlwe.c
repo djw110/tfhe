@@ -12,11 +12,6 @@ void poly_cipher_free(poly_cipher *c){
     c->b = NULL;
 }
 
-void poly_gen_sk(uint8_t *buf){
-    for (int i=0; i<n; i++){
-        buf[i] = sec_rand8();
-    }
-}
 
 void poly_gen_pk(poly_cipher *c){
     for (int i = 0; i < n; i++){
