@@ -13,5 +13,5 @@
 
 extern const int n; // ring dimension
 extern const int l; // decomposition levels
-extern const int beta; //bits per level (Base = 2^beta)
+extern const int base_log; //bits per level (Base = 2^base_log)
 extern const double gaus_alpha; // noise parameter
