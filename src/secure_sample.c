@@ -1,5 +1,4 @@
 #include "secure_sample.h"
-#include <sys/random.h>
 
 uint32_t sec_rand32() {
     uint32_t r;

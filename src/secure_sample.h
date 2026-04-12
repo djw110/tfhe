@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <math.h>
+#include <sys/random.h>
 #include "params.h"
 
 uint32_t sec_rand32();
