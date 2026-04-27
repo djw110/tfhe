@@ -73,9 +73,42 @@ void gsw_encrypt(gsw_cipher *c, uint8_t *s, uint32_t *m){
 
 void external_product(poly_cipher *cin, gsw_cipher *min, poly_cipher *cout){
     poly_cipher_zero(cout);
-    uint32_t **dec_a; // initialize these
-    uint32_t **dec_b;
+    uint32_t **dec_a = malloc (l * sizeof(uint32_t*));
+    uint32_t **dec_b = malloc (l * sizeof(uint32_t*));
+    uint32_t *temp_a = malloc(n * sizeof(uint32_t));
+    uint32_t *temp_b = malloc(n * sizeof(uint32_t)); 
+    for (int i = 0; i < l; i++){
+        dec_a[i] = malloc(n * sizeof(uint32_t));
+        dec_b[i] = malloc(n * sizeof(uint32_t));
+    }
     poly_gadget_decompose(cin->a, dec_a);
     poly_gadget_decompose(cin->b, dec_b);
-    return;
+
+    for (int i = 0; i < l; i++){      
+        
+        // Handle decomposed 'a'
+        poly_cipher *row = &min->rows[(i)];
+        ring_poly_mul(dec_a[i], row->a, temp_a);
+        ring_poly_mul(dec_a[i], row->b, temp_b);
+
+        ring_poly_add(cout->a, temp_a, cout->a);
+        ring_poly_add(cout->b, temp_b, cout->b);
+
+        // Handle decomposed 'b'
+        row = &min->rows[(i+l)];
+        ring_poly_mul(dec_b[i], row->a, temp_a);
+        ring_poly_mul(dec_b[i], row->b, temp_b);
+
+        ring_poly_add(cout->a, temp_a, cout->a);
+        ring_poly_add(cout->b, temp_b, cout->b);
+    }
+
+    for (int i = 0; i < l; i++){
+        free(dec_a[i]);
+        free(dec_b[i]);
+    }
+    free(dec_a);
+    free(dec_b);
+    free(temp_a);
+    free(temp_b);
 }

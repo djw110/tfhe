@@ -9,6 +9,9 @@ typedef struct {
 void poly_cipher_init(poly_cipher *c);
 void poly_cipher_free(poly_cipher *c);
 void poly_cipher_zero(poly_cipher *c);
+void ring_poly_mul(uint32_t *poly_a, uint32_t *poly_b, uint32_t *out);
+void ring_poly_add(uint32_t *poly_a, uint32_t *poly_b, uint32_t *out);
+void ring_poly_sub(uint32_t *poly_a, uint32_t *poly_b, uint32_t *out);
 void poly_encrypt(poly_cipher *c, uint8_t *s, uint32_t *m);
 void poly_decrypt(uint32_t *buf, poly_cipher *c, uint8_t *s);
 void poly_bin_encrypt(poly_cipher *c, uint8_t *s, uint8_t *m);
