@@ -26,6 +26,29 @@ void poly_gadget_scale(uint32_t *m, uint32_t i){
     }
 }
 
+void poly_gadget_decompose(uint32_t *poly_in, uint32_t **out){
+    uint32_t mask = (1U << base_log) - 1;
+    uint32_t half_base = (1U << (base_log - 1));
+
+    for (int i = 0; i < n; i++){
+        uint32_t val = poly_in[i];
+
+        for (int j = 1; j <= l; j++) {
+            int shift = 32 - (j * base_log);
+            uint32_t digit = (val >> shift) & mask;
+            int32_t signed_digit;
+            if (digit >= half_base){
+                signed_digit = (int32_t)digit - (1U << base_log);
+                val += (1U << (shift + base_log));
+            }
+            else {
+                signed_digit = (int32_t)digit;
+            }
+            out[j-1][i] = (uint32_t)signed_digit;
+        }
+    }
+}
+
 void gsw_encrypt(gsw_cipher *c, uint8_t *s, uint32_t *m){
     uint32_t zeroes[n];
     uint32_t m_scaled[n];
@@ -46,4 +69,13 @@ void gsw_encrypt(gsw_cipher *c, uint8_t *s, uint32_t *m){
             c->rows[i+l].b[j] += m_scaled[j]; 
         }
     }
+}
+
+void external_product(poly_cipher *cin, gsw_cipher *min, poly_cipher *cout){
+    poly_cipher_zero(cout);
+    uint32_t **dec_a; // initialize these
+    uint32_t **dec_b;
+    poly_gadget_decompose(cin->a, dec_a);
+    poly_gadget_decompose(cin->b, dec_b);
+    return;
 }

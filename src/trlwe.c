@@ -12,6 +12,12 @@ void poly_cipher_free(poly_cipher *c){
     c->b = NULL;
 }
 
+void poly_cipher_zero(poly_cipher *c){
+    for (int i = 0; i < n; i++){
+        c->a[i] = 0;
+        c->b[i] = 0;
+    }
+}
 
 void poly_gen_pk(poly_cipher *c){
     for (int i = 0; i < n; i++){
