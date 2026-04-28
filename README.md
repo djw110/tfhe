@@ -52,3 +52,6 @@ On it's own, this is still not perfect. The external product is used a tool in a
 
 ## Bootstrapping, continuation
 As you may notice, the external product operation is incomplete. The arithmetic and logic is correct, but it is not yet functional for binary decryption. C is exceptional for performance, but it is also quite difficult to debug complex operations like EP with such little room for failure. We plan to completely implement external product for homomorphic multiplication of strings of packed bits. Afterward, we intend to implement programmable bootstrapping, allowing us to develop a full demonstration of complete encrypted computation.
+
+## Running the Scheme
+The executable compiles the framework, and runs several unit tests. Currently it tests the encryption and decryption of random bits. It tests the homomorphic XOR gates of randomly generated bits. It then tests the correct encryption and decryption of randomly generated polynomials, and performing XOR and NOT gates on the encrypted polynomials.
