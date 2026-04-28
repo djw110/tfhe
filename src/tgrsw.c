@@ -18,7 +18,6 @@ void gsw_cipher_free(gsw_cipher *c){
     c->rows = NULL;
 }
 
-// TODO: Review how level + baselog collaborate
 void poly_gadget_scale(uint32_t *m, uint32_t i){
     uint32_t shift = 32 - (i + 1) * base_log;
     for (int k = 0; k < n; k++){
@@ -26,6 +25,7 @@ void poly_gadget_scale(uint32_t *m, uint32_t i){
     }
 }
 
+// TODO: Ensure this is proper inverse of poly_gadget_scale()
 void poly_gadget_decompose(uint32_t *poly_in, uint32_t **out){
     uint32_t mask = (1U << base_log) - 1;
     uint32_t half_base = (1U << (base_log - 1));
@@ -36,15 +36,7 @@ void poly_gadget_decompose(uint32_t *poly_in, uint32_t **out){
         for (int j = 1; j <= l; j++) {
             int shift = 32 - (j * base_log);
             uint32_t digit = (val >> shift) & mask;
-            int32_t signed_digit;
-            if (digit >= half_base){
-                signed_digit = (int32_t)digit - (1U << base_log);
-                val += (1U << (shift + base_log));
-            }
-            else {
-                signed_digit = (int32_t)digit;
-            }
-            out[j-1][i] = (uint32_t)signed_digit;
+            out[j-1][i] = digit;
         }
     }
 }
@@ -61,7 +53,7 @@ void gsw_encrypt(gsw_cipher *c, uint8_t *s, uint32_t *m){
 
         poly_encrypt(&(c->rows[i]), s, zeroes);
         for (int j=0; j < n; j++){
-            c->rows[i].a[j] -= m_scaled[j]; 
+            c->rows[i].a[j] += m_scaled[j]; 
         }
 
         poly_encrypt(&(c->rows[i+l]), s, zeroes);
@@ -71,6 +63,7 @@ void gsw_encrypt(gsw_cipher *c, uint8_t *s, uint32_t *m){
     }
 }
 
+// TODO: Logical improvements. Does not always produce true product.
 void external_product(poly_cipher *cin, gsw_cipher *min, poly_cipher *cout){
     poly_cipher_zero(cout);
     uint32_t **dec_a = malloc (l * sizeof(uint32_t*));

@@ -53,6 +53,12 @@ void ring_poly_add(uint32_t *poly_a, uint32_t *poly_b, uint32_t *out){
     }
 }
 
+void bin_poly_xor(uint8_t *poly_a, uint8_t *poly_b, uint8_t *out){
+    for (int i = 0; i < n; i ++){
+        out[i] = poly_a[i] ^ poly_b[i];
+    }
+}
+
 void ring_poly_sub(uint32_t *poly_a, uint32_t *poly_b, uint32_t *out){
     for (int i = 0; i < n; i++){
         out[i] = poly_a[i] - poly_b[i];
